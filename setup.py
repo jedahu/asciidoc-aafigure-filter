@@ -6,7 +6,7 @@ setup(
     author='Jeremy Hughes',
     author_email='jed@jedatwork.com',
     packages=['asciidoc_aafigure_filter'],
-    url='http://github.com/jedahu/unidoc_aafigure_filter',
+    url='https://github.com/jedahu/asciidoc-aafigure-filter',
     license='GPL2',
     description='aafigure filter for AsciiDoc.',
     long_description=open('README').read(),
