@@ -1,8 +1,10 @@
 aafigure filter for AsciiDoc
 ============================
-Author: Henrik Maier
+Jeremy Hughes <jed@jedatwork.com>
+v1.0, 2011-02-06: Initial release.
+v1.1-jedahu, 2012-08-16: Modified for AsciiDoc-jedahu.
 
-Version: 1.1
+Original author: Henrik Maier.
 
 
 Introduction
@@ -13,33 +15,33 @@ ASCII line art to image conversion. Using the AsciiDoc aafigure filter, ASCII
 line art can be embedded into AsciiDoc documents and processed into either PNG
 bitmap or SVG vector graphics.
 
+NOTE: This variant of the filter operates in-process and thus works only with
+the https://github.com/jedahu/asciidoc.git[jedahu variant of AsciiDoc].
+
 
 Usage
 -----
 
 - The aafigure filter is invoked by setting the listing block or
-  paragraph style (the first positional block attribute) to '"aafigure"'.
-- The second positional attribute (named 'target') is optional, it sets
-  the name of the generated image file. If this is not supplied a
-  file name is automatically generated.
-- The default output format is SVG for DocBook and PNG for all other backends.
+  paragraph style (the first positional block attribute) to `aafigure`.
+- The default output format is SVG.
 - Additional well known aafigure options can be specified as named attributes. Refer to table below.
 
 .Supported aafigure options
 [cols="20e,35m,10,35",options="header,unbreakable"]
 |==============================================================================
 | Option       | Example                        | Default | Function
-| format       | ["aafigure",format="png"]      | `svg` for DocBook, otherwise `png` | Image file format
-| scaling      | ["aafigure",scaling="0.5"]     | `1.0` | aafigure image scaling
+| format       | [aafigure,format=png]      | `svg` | Image file format
+| scaling      | [aafigure,scaling=0.5]     | `1.0` | aafigure image scaling
     footnote:[`scaling` is different to the DocBook backend's image `scale` attribute!]
-| aspect       | ["aafigure",aspect="0.7"]      | `1.0` | set aafigure aspect ratio
-| linewidth    | ["aafigure",linewidth="4.0"]   | `2.0` | set linewidth (svg only)
-| foreground   | ["aafigure",foreground="#ff1050"] | `#000000` | foreground color
-| background   | ["aafigure",background="#eeeeee"] | `#ffffff` | background color
-| fill         | ["aafigure",fill="#fff"]          | `#000000` | fill color (png only)
-| textual      | ["aafigure",options="textual"]    |  | disable horizontal fill detection
-| proportional | ["aafigure",options="proportional"] | `proportional` | use proportional font (default)
-| fixed        | ["aafigure",options="fixed"]      |  | used fixed-width font
+| aspect       | [aafigure,aspect=0.7]      | `1.0` | set aafigure aspect ratio
+| linewidth    | [aafigure,linewidth=4.0]   | `2.0` | set linewidth (svg only)
+| foreground   | [aafigure,foreground=#ff1050] | `#000000` | foreground color
+| background   | [aafigure,background=#eeeeee] | `#ffffff` | background color
+| fill         | [aafigure,fill=#fff]          | `#000000` | fill color (png only)
+| textual      | [aafigure,opts=(textual)]    |  | disable horizontal fill detection
+| proportional | [aafigure,opts=(proportional)] | `proportional` | use proportional font (default)
+| fixed        | [aafigure,opts=(fixed)]      |  | used fixed-width font
 |==============================================================================
 
 
@@ -47,7 +49,7 @@ This AsciiDoc block:
 
 [listing]
 .....................................................................
-["aafigure"]
+[aafigure]
 -------------------------------------------------------------------------------
     +---------------+
     |A box with text|
@@ -57,7 +59,7 @@ This AsciiDoc block:
 
 renders:
 
-["aafigure"]
+[aafigure]
 -------------------------------------------------------------------------------
     +---------------+
     |A box with text|
@@ -74,7 +76,7 @@ In addition to AsciiDoc you will need to have installed:
 - The Python Imaging Library (PIL) package (http://www.pythonware.com/products/pil/)
 
 The filter was developed and tested on Windows using aafigure 0.5, PIL 1.1.7
-and AsciiDoc 8.6.3.
+and AsciiDoc-8.6.8-jedahu-beta.
 
 
 Known Issues
@@ -132,7 +134,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Flow chart
-["aafigure",options="textual"]
+[aafigure,opts=(textual)]
 -------------------------------------------------------------------------------
         /---------\
         |  Start  |
@@ -163,7 +165,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Sequence diagram
-["aafigure",scaling="0.8"]
+[aafigure,scaling=0.8]
 -------------------------------------------------------------------------------
     +---------+  +---------+  +---------+
     |Object 1 |  |Object 2 |  |Object 3 |
@@ -188,7 +190,7 @@ The following examples are taken from the aafigure documentation.
 -------------------------------------------------------------------------------
 
 
-["aafigure",scaling="0.8"]
+[aafigure,scaling=0.8]
 -------------------------------------------------------------------------------
     +---------+         +---------+     +---------+
     |  Shape  |         |  Line   |     |  Point  |
@@ -206,7 +208,7 @@ The following examples are taken from the aafigure documentation.
 -------------------------------------------------------------------------------
 
 
-["aafigure",scaledwidth="100%"]
+[aafigure,scaledwidth=100%]
 -------------------------------------------------------------------------------
                              /-----------\     yes /----------\
                           -->| then this |--->*--->| and this |
@@ -221,7 +223,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Electrical circuit
-["aafigure",fill="#fff"]
+[aafigure,fill=#fff]
 -------------------------------------------------------------------------------
           Iin +-----+      Iout
         O->---+ R1  +---o-->-----O
@@ -234,7 +236,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Schematic diagram
-["aafigure",format="png",fill="#fff",scaling="0.8",options="textual",scaledwidth="100%"]
+[aafigure,format=png,fill=#fff,scaling=0.8,opts=(textual),scaledwidth=100%]
 -------------------------------------------------------------------------------
                          Q1  _  8MHz
                            || ||
@@ -273,7 +275,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Timing diagram
-["aafigure",aspect="0.5"]
+[aafigure,aspect=0.5]
 -------------------------------------------------------------------------------
       ^    ___     ___           ____
     A |___|   |___|   |_________|    |______
@@ -285,7 +287,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Timing diagram with descriptions
-["aafigure",scaledwidth="100%"]
+[aafigure,scaledwidth=100%]
 -------------------------------------------------------------------------------
                         SDA edge
          start                              stop
@@ -308,7 +310,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Statistical diagrams
-["aafigure",foreground="#ff1050",aspect="0.7",scaledwidth="100%"]
+[aafigure,foreground=#ff1050,aspect=0.7,scaledwidth=100%]
 -------------------------------------------------------------------------------
 
       |
@@ -343,7 +345,7 @@ The following examples are taken from the aafigure documentation.
 
 
 .Schedules
-["aafigure",scaledwidth="100%"]
+[aafigure,scaledwidth=100%]
 -------------------------------------------------------------------------------
     "Week"      |  1    |  2    |  3    |  4    |  5    |
     ------------+----------------------------------------
