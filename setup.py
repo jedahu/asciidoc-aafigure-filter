@@ -10,6 +10,7 @@ setup(
     license='GPL2',
     description='aafigure filter for AsciiDoc.',
     long_description=open('README').read(),
+    package_data={'asciidoc_aafigure_filter': ['filter.conf']},
     include_package_data=True,
     install_requires=[
       'PIL==1.1.7',
